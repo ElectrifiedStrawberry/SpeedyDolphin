@@ -42,7 +42,7 @@ then starts a task which never completes (because the DSP isn't responding).)
 Disable support for controller emulation, mapping, etc. You'll need to rely
 on another method (MMIO, probably) to control the running application.
 
-### DVD Overclock (`SPDY_DVD_OC`) *(In Progress)*
+### DVD Overclock (`SPDY_DVD_OC`)
 
 The DVD controller, even when "Emulate Disc Speed" is unchecked, limits
 to 32 MiB/s. This removes this limit.

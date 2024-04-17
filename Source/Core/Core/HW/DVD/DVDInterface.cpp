@@ -1401,9 +1401,12 @@ void DVDInterface::ScheduleReads(u64 offset, u32 length, const DiscIO::Partition
 
   DEBUG_LOG_FMT(DVDINTERFACE, "Schedule reads: offset={:#x} length={:#x} address={:#x}", offset,
                 length, output_address);
-
+#ifdef SPDY_DVD_OC
+  const s64 ticks_until_completion = 1;
+#else
   s64 ticks_until_completion =
       READ_COMMAND_LATENCY_US * (m_system.GetSystemTimers().GetTicksPerSecond() / 1000000);
+#endif
 
   u32 buffered_blocks = 0;
   u32 unbuffered_blocks = 0;
@@ -1428,8 +1431,10 @@ void DVDInterface::ScheduleReads(u64 offset, u32 length, const DiscIO::Partition
       // Number of ticks it takes to transfer the data from the buffer to memory.
       // TODO: This calculation is slightly wrong when decrypt is true - it uses the size of
       // the copy from IOS to PPC but is supposed to model the copy from the disc drive to IOS.
+#ifndef SPDY_DVD_OC
       ticks_until_completion +=
           static_cast<u64>(chunk_length) * ticks_per_second / BUFFER_TRANSFER_RATE;
+#endif
       buffered_blocks++;
     }
     else
@@ -1440,17 +1445,20 @@ void DVDInterface::ScheduleReads(u64 offset, u32 length, const DiscIO::Partition
       {
         // Unbuffered seek+read
         seek = true;
+#ifndef SPDY_DVD_OC
         ticks_until_completion += static_cast<u64>(
             ticks_per_second * DVDMath::CalculateSeekTime(head_position, dvd_offset));
+#endif
 
         // TODO: The above emulates seeking and then reading one ECC block of data,
         // and then the below emulates the rotational latency. The rotational latency
         // should actually happen before reading data from the disc.
-
+#ifndef SPDY_DVD_OC
         const double time_after_seek =
             (core_timing.GetTicks() + ticks_until_completion) / ticks_per_second;
         ticks_until_completion += ticks_per_second * DVDMath::CalculateRotationalLatency(
                                                          dvd_offset, time_after_seek, wii_disc);
+#endif
 
         DEBUG_LOG_FMT(DVDINTERFACE, "Seek+read {:#x} bytes @ {:#x} ticks={}", chunk_length, offset,
                       ticks_until_completion);
@@ -1458,9 +1466,11 @@ void DVDInterface::ScheduleReads(u64 offset, u32 length, const DiscIO::Partition
       else
       {
         // Unbuffered read
+#ifndef SPDY_DVD_OC
         ticks_until_completion +=
             static_cast<u64>(ticks_per_second * DVDMath::CalculateRawDiscReadTime(
                                                     dvd_offset, DVD_ECC_BLOCK_SIZE, wii_disc));
+#endif
       }
 
       unbuffered_blocks++;

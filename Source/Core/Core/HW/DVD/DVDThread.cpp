@@ -249,6 +249,9 @@ void DVDThread::StartReadInternal(bool copy_to_ram, u32 output_address, u64 dvd_
   m_request_queue.Push(std::move(request));
   m_request_queue_expanded.Set();
 
+#ifdef SPDY_DVD_OC
+  ticks_until_completion = 1;
+#endif
   core_timing.ScheduleEvent(ticks_until_completion, m_finish_read, id);
 }
 

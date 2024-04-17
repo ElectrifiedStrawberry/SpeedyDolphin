@@ -225,6 +225,7 @@ void AudioInterfaceManager::Shutdown()
 
 void AudioInterfaceManager::RegisterMMIO(MMIO::Mapping* mmio, u32 base)
 {
+#ifndef SPDY_NO_DSP
   mmio->Register(
       base | AI_CONTROL_REGISTER, MMIO::DirectRead<u32>(&m_control.hex),
       MMIO::ComplexWrite<u32>([](Core::System& system, u32, u32 val) {
@@ -328,6 +329,7 @@ void AudioInterfaceManager::RegisterMMIO(MMIO::Mapping* mmio, u32 base)
                    core_timing.RemoveEvent(ai.m_event_type_ai);
                    core_timing.ScheduleEvent(ai.GetAIPeriod(), ai.m_event_type_ai);
                  }));
+#endif
 }
 
 void AudioInterfaceManager::GenerateAISInterrupt()

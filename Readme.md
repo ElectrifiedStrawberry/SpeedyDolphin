@@ -51,21 +51,18 @@ What events will still be processed is still being decided.
 
 Disable DSP (and therefore sound) emulation altogether.
 
-> [!WARNING]
-> This doesn't work properly; for SDK games `__OSInitAudioSystem` also
-> is an issue (tested with Wii Play US Rev 1). Unforunately, this runs too 
-> early in the boot process so patching it out with memory patches doesn't work. :(
-
-#### Bypassing AX startup softlock
+#### Bypassing OS and AX startup softlock
 
 This will probably break games that rely on getting data back from the DSP 
-on startup (nearly all of them). Use a cheat code to stub out the code that waits
-from the DSP on startup.
+on startup (nearly all of them).
 
-For SDK games, stubbing out `AXInit` should probably work.
+To fix this, define `__OSInitAudioSystem` (and likely `_AXOutInitDSP`). 
+These functions are stubbed out under `SPDY_NO_DSP` if there is a symbol for
+them, which will allow you to run programs that call them (most, if not all, 
+SDK (or official) titles will call this function).
 
-(This issue happens particularly because `__AXOutInitDSP` calls `DSPInit`
-then starts a task which never completes (because the DSP isn't responding).)
+(This issue happens particularly these functions wait for the DSP to respond
+and will simply sit in an infinite loop until they do.)
 
 ### Disabled controller support (`SPDY_NO_CTLRS`) *(In Progress)*
 

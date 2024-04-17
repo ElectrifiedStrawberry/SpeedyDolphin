@@ -27,7 +27,12 @@ namespace HLE
 static std::map<u32, u32> s_hooked_addresses;
 
 // clang-format off
+#ifndef SPDY_NO_DSP 
 constexpr std::array<Hook, 23> os_patches{{
+#else
+// TODO: If we HLE other stuff, we might need to think of a better way for this
+constexpr std::array<Hook, 25> os_patches{{
+#endif
     // Placeholder, os_patches[0] is the "non-existent function" index
     {"FAKE_TO_SKIP_0",               HLE_Misc::UnimplementedFunction,       HookType::Replace, HookFlag::Generic},
 
@@ -59,7 +64,16 @@ constexpr std::array<Hook, 23> os_patches{{
 
     {"GeckoCodehandler",             HLE_Misc::GeckoCodeHandlerICacheFlush, HookType::Start,   HookFlag::Fixed},
     {"GeckoHandlerReturnTrampoline", HLE_Misc::GeckoReturnTrampoline,       HookType::Replace, HookFlag::Fixed},
+#ifndef SPDY_NO_DSP 
     {"AppLoaderReport",              HLE_OS::HLE_GeneralDebugPrint,         HookType::Start,   HookFlag::Fixed} // apploader needs OSReport-like function
+#else
+    {"AppLoaderReport",              HLE_OS::HLE_GeneralDebugPrint,         HookType::Start,   HookFlag::Fixed}, // apploader needs OSReport-like function
+#endif
+#ifdef SPDY_NO_DSP
+
+    {"__OSInitAudioSystem",          HLE_Misc::UnimplementedFunction,       HookType::Replace, HookFlag::Generic},
+    {"__AXOutInitDSP",               HLE_Misc::UnimplementedFunction,       HookType::Replace, HookFlag::Generic},
+#endif
 }};
 // clang-format on
 

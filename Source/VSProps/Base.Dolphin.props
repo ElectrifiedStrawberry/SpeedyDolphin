@@ -54,7 +54,7 @@
 	  <PreprocessorDefinitions>SPDY_CPU_HIGH_OC_LIMIT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  <PreprocessorDefinitions>SPDY_DVD_OC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  <PreprocessorDefinitions>SPDY_FAST_TIMINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-	  <!--<PreprocessorDefinitions>SPDY_NO_DSP;%(PreprocessorDefinitions)</PreprocessorDefinitions>!-->
+	  <PreprocessorDefinitions>SPDY_NO_DSP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  <!-- SPDY END -->
 
       <!-- Warnings one may want to ignore when using Level4.

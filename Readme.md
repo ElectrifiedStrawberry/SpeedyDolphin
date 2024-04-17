@@ -10,6 +10,18 @@ maintain accuracy on a best-effort basis and basically only for a few components
 
 Where possible, compiler defines are provided so you can build however you want.
 
+> [!IMPORTANT]
+> It's worth strongly emphasizing again that performance (and specifically
+> CPU performance) is the goal. With some settings, some applications and games
+> may be buggy, simply not work, or cause other problems.
+>
+> Generally the rule of thumb is that the behavior of the core PowerPC components
+> are emphasized while other components are deemphasized.
+>
+> It is also important to note if you're running custom applications that 
+> Dolphin upstream and this fork are *not* [sandboxes](https://en.wikipedia.org/wiki/Sandbox_(computer_security))
+> and to only run trusted code.
+
 ## What are some features?
 
 > [!TIP]

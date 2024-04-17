@@ -1,3 +1,67 @@
+# SpeedyDolphin - A GameCube and Wii Emulator
+
+It's like Dolphin, but without the "allowing you to play games" part.
+
+## What this fork is about
+
+In particular, this fork is a fork that heavily emphasizes CPU performance
+over all else (including platform compatability), while attempting to 
+maintain accuracy on a best-effort basis and basically only for a few components.
+
+Where possible, compiler defines are provided so you can build however you want.
+
+## What are some features?
+
+> ![TIP]
+> If you're looking to create your own build and change which features are
+> enabled, edit the properties defined in `Source/VSProps/Base.Dolphin.props`.
+
+### Overclockability (`SPDY_CPU_HIGH_OC_LIMIT`)
+
+Increasing the emulated CPU speed is the main reason for this fork. 
+You can set up overclocking to around 16x (4x is the default and my guess is that most 
+computers won't be able to handle more than 8x).
+
+### Disabled DSP (`SPDY_NO_DSP`)
+
+Disable DSP (and therefore sound) emulation altogether.
+
+#### Bypassing AX startup softlock
+
+This will probably break games that rely on getting data back from the DSP 
+on startup (nearly all of them). Use a cheat code to stub out the code that waits
+from the DSP on startup.
+
+For SDK games, stubbing out `AXInit` should work.
+
+(This issue happens particularly because `__AXOutInitDSP` calls `DSPInit`
+then starts a task which never completes (because the DSP isn't responding).)
+
+### Disabled controller support (`SPDY_NO_CTLRS`)
+
+Disable support for controller emulation, mapping, etc. You'll need to rely
+on another method (MMIO, probably) to control the running application.
+
+### DVD Overclock (`SPDY_DVD_OC`)
+
+The DVD controller, even when "Emulate Disc Speed" is unchecked, limits
+to 32 MiB/s. This removes this limit.
+
+### Portable Mode Only (`SPDY_PORTABLE_ONLY`)
+
+Uses portable mode all the time. Doesn't enhance performance, but may be
+useful if you have multiple copies lugging around.
+
+### Original Dolphin Defines
+`USE_RETRO_ACHIEVEMENTS`, `USE_DISCORD_PRESENCE`, `USE_ANALYTICS`, and `AUTOUPDATE` are disabled
+by default.
+
+## Original README
+
+<details>
+
+<summary>Original README below</summary>
+
 # Dolphin - A GameCube and Wii Emulator
 
 [Homepage](https://dolphin-emu.org/) | [Project Site](https://github.com/dolphin-emu/dolphin) | [Buildbot](https://dolphin.ci/) | [Forums](https://forums.dolphin-emu.org/) | [Wiki](https://wiki.dolphin-emu.org/) | [GitHub Wiki](https://github.com/dolphin-emu/dolphin/wiki) | [Issue Tracker](https://bugs.dolphin-emu.org/projects/emulator/issues) | [Coding Style](https://github.com/dolphin-emu/dolphin/blob/master/Contributing.md) | [Transifex Page](https://app.transifex.com/delroth/dolphin-emu/dashboard/)
@@ -252,3 +316,5 @@ then exit.
                         Optional. Print the level of compression for WIA/RVZ
                         formats, then exit.
 ```
+
+</details>

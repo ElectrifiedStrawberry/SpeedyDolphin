@@ -317,11 +317,16 @@ void SetUserDirectory(std::string custom_path)
   //    -> Use GetExeDirectory()\User
 
   // Get AppData path in case we need it.
+#ifndef SPDY_PORTABLE_ONLY
   wil::unique_cotaskmem_string appdata;
   bool appdata_found = SUCCEEDED(
       SHGetKnownFolderPath(FOLDERID_RoamingAppData, KF_FLAG_DEFAULT, nullptr, appdata.put()));
+#endif
 
 #ifndef STEAM
+#ifdef SPDY_PORTABLE_ONLY
+  const DWORD local = 1;
+#else
   // Check our registry keys
   wil::unique_hkey hkey;
   DWORD local = 0;
@@ -358,11 +363,12 @@ void SetUserDirectory(std::string custom_path)
   {
     old_user_folder = TStrToUTF8(documents.get()) + DIR_SEP NORMAL_USER_DIR DIR_SEP;
   }
-
+#endif // ifdef SPDY_PORTABLE_ONLY
   if (local)  // Case 1-2
   {
     user_path = File::GetExeDirectory() + DIR_SEP PORTABLE_USER_DIR DIR_SEP;
   }
+#ifndef SPDY_PORTABLE_ONLY
   else if (configPath)  // Case 3
   {
     user_path = TStrToUTF8(configPath.get());
@@ -388,6 +394,7 @@ void SetUserDirectory(std::string custom_path)
   {
     user_path = File::GetExeDirectory() + DIR_SEP PORTABLE_USER_DIR DIR_SEP;
   }
+#endif // ifndef SPDY_PORTABLE_ONLY
 #else  // ifndef STEAM
   if (File::Exists(File::GetExeDirectory() + DIR_SEP "portable.txt"))  // Case 1
   {

@@ -36,16 +36,16 @@
       <PreprocessorDefinitions Condition="'$(Platform)'=='x64'">_ARCH_64=1;_M_X86_64=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Platform)'=='ARM64'">_ARCH_64=1;_M_ARM_64=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions>USE_UPNP;__LIBUSB__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <!-- <PreprocessorDefinitions>USE_ANALYTICS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions> -->
-      <!-- <PreprocessorDefinitions>USE_DISCORD_PRESENCE;%(PreprocessorDefinitions)</PreprocessorDefinitions> -->
+      <!-- <PreprocessorDefinitions>USE_ANALYTICS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions> --> <!-- SPDY: Disable USE_ANALYTICS -->
+      <!-- <PreprocessorDefinitions>USE_DISCORD_PRESENCE;%(PreprocessorDefinitions)</PreprocessorDefinitions> --> <!-- SPDY: Disable USE_DISCORD_PRESENCE -->
       <PreprocessorDefinitions>HAVE_FFMPEG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Platform)'=='x64'">HAS_OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions>HAS_VULKAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions>HAS_LIBMGBA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <!-- <PreprocessorDefinitions Condition="'$(AutoUpdate)'!='false'">AUTOUPDATE;%(PreprocessorDefinitions)</PreprocessorDefinitions> -->
+      <!-- <PreprocessorDefinitions Condition="'$(AutoUpdate)'!='false'">AUTOUPDATE;%(PreprocessorDefinitions)</PreprocessorDefinitions> --> <!-- SPDY: Disable AUTOUPDATE -->
       <PreprocessorDefinitions>HAVE_SDL2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Steam)'=='true'">STEAM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <!-- <PreprocessorDefinitions>USE_RETRO_ACHIEVEMENTS;%(PreprocessorDefinitions)</PreprocessorDefinitions> -->
+      <!-- <PreprocessorDefinitions>USE_RETRO_ACHIEVEMENTS;%(PreprocessorDefinitions)</PreprocessorDefinitions> --> <!-- SPDY: Disable USE_RETRO_ACHIEVEMENTS -->
       <PreprocessorDefinitions>RC_CLIENT_SUPPORTS_HASH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  
 	  <!-- SPDY START: Custom processor definitions -->
@@ -53,7 +53,7 @@
 	  <PreprocessorDefinitions>SPDY_PORTABLE_ONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  <PreprocessorDefinitions>SPDY_CPU_HIGH_OC_LIMIT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  <PreprocessorDefinitions>SPDY_DVD_OC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-	  <PreprocessorDefinitions>SPDY_NO_DSP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+	  <!--<PreprocessorDefinitions>SPDY_NO_DSP;%(PreprocessorDefinitions)</PreprocessorDefinitions>!-->
 	  <!-- SPDY END -->
 
       <!-- Warnings one may want to ignore when using Level4.

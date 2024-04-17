@@ -12,7 +12,7 @@ Where possible, compiler defines are provided so you can build however you want.
 
 ## What are some features?
 
-> ![TIP]
+> [!TIP]
 > If you're looking to create your own build and change which features are
 > enabled, edit the properties defined in `Source/VSProps/Base.Dolphin.props`.
 
@@ -25,6 +25,11 @@ computers won't be able to handle more than 8x).
 ### Disabled DSP (`SPDY_NO_DSP`) *(In Progress)*
 
 Disable DSP (and therefore sound) emulation altogether.
+
+>[!WARNING]
+> This doesn't work properly; for SDK games `__OSInitAudioSystem` also
+> is an issue. Unforunately, this runs too early in the boot process so
+> patching it out with memory patches doesn't work. :(
 
 #### Bypassing AX startup softlock
 
@@ -52,7 +57,7 @@ to 32 MiB/s. This removes this limit.
 Uses portable mode all the time. Doesn't enhance performance, but may be
 useful if you have multiple copies lugging around.
 
-### Always Launch In Debug Mode (`SPDY_GUI_USE_DEBUGGER_ALWAYS`) *(In Progress)*
+### Always Launch In Debug Mode (`SPDY_GUI_USE_DEBUGGER_ALWAYS`)
 
 Use the debugger UI even when launched without the `-d` flag.  
 This only applies to the Qt UI.

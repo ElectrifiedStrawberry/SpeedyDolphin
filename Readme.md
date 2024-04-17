@@ -20,18 +20,26 @@ Where possible, compiler defines are provided so you can build however you want.
 
 Increasing the emulated CPU speed is the main reason for this fork. 
 You can set up overclocking to around 16x (4x is upstream's maximum and my 
-guess is that most  computers won't be able to handle more than 8x).
+guess is that most computers won't be able to handle more than 8x).
 
 > [!IMPORTANT]
 > All the caveats that are given with CPU overclocking by upstream apply; very
 > few games can make use of it (and very few applications can make use of the
 > higher limit still).
 
+### Point-of-No Return Mode (`SPDY_PNR_MODE`) *(In Progress)*
+
+Enables a mode that, once activated, stops most events from occurring. This is
+useful for scenarios where a program is ran with data from a external interface
+that writes into memory.
+
+What events will still be processed is still being decided.
+
 ### Disabled DSP (`SPDY_NO_DSP`) *(In Progress)*
 
 Disable DSP (and therefore sound) emulation altogether.
 
->[!WARNING]
+> [!WARNING]
 > This doesn't work properly; for SDK games `__OSInitAudioSystem` also
 > is an issue. Unforunately, this runs too early in the boot process so
 > patching it out with memory patches doesn't work. :(

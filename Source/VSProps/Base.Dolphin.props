@@ -49,6 +49,7 @@
       <PreprocessorDefinitions>RC_CLIENT_SUPPORTS_HASH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  
 	  <!-- SPDY START: Custom processor definitions -->
+	  <PreprocessorDefinitions>SPDY_GUI_USE_DEBUGGER_ALWAYS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  <PreprocessorDefinitions>SPDY_PORTABLE_ONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  <PreprocessorDefinitions>SPDY_CPU_HIGH_OC_LIMIT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  <PreprocessorDefinitions>SPDY_DVD_OC;%(PreprocessorDefinitions)</PreprocessorDefinitions>

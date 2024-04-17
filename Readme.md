@@ -52,6 +52,11 @@ to 32 MiB/s. This removes this limit.
 Uses portable mode all the time. Doesn't enhance performance, but may be
 useful if you have multiple copies lugging around.
 
+### Always Launch In Debug Mode (`SPDY_GUI_USE_DEBUGGER_ALWAYS`) *(In Progress)*
+
+Use the debugger UI even when launched without the `-d` flag.  
+This only applies to the Qt UI.
+
 ### Original Dolphin Defines
 `USE_RETRO_ACHIEVEMENTS`, `USE_DISCORD_PRESENCE`, `USE_ANALYTICS`, and `AUTOUPDATE` are disabled
 by default.

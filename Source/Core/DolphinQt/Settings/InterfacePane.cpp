@@ -156,13 +156,17 @@ void InterfacePane::CreateUI()
   m_checkbox_use_builtin_title_database = new QCheckBox(tr("Use Built-In Database of Game Names"));
   m_checkbox_use_covers =
       new QCheckBox(tr("Download Game Covers from GameTDB.com for Use in Grid Mode"));
+#ifndef SPDY_GUI_USE_DEBUGGER_ALWAYS
   m_checkbox_show_debugging_ui = new ToolTipCheckBox(tr("Enable Debugging UI"));
+#endif
   m_checkbox_focused_hotkeys = new QCheckBox(tr("Hotkeys Require Window Focus"));
   m_checkbox_disable_screensaver = new QCheckBox(tr("Inhibit Screensaver During Emulation"));
 
   groupbox_layout->addWidget(m_checkbox_use_builtin_title_database);
   groupbox_layout->addWidget(m_checkbox_use_covers);
+#ifndef SPDY_GUI_USE_DEBUGGER_ALWAYS
   groupbox_layout->addWidget(m_checkbox_show_debugging_ui);
+#endif
   groupbox_layout->addWidget(m_checkbox_focused_hotkeys);
   groupbox_layout->addWidget(m_checkbox_disable_screensaver);
 }
@@ -224,7 +228,9 @@ void InterfacePane::ConnectLayout()
           &InterfacePane::OnSaveConfig);
   connect(m_checkbox_use_covers, &QCheckBox::toggled, this, &InterfacePane::OnSaveConfig);
   connect(m_checkbox_disable_screensaver, &QCheckBox::toggled, this, &InterfacePane::OnSaveConfig);
+#ifndef SPDY_GUI_USE_DEBUGGER_ALWAYS
   connect(m_checkbox_show_debugging_ui, &QCheckBox::toggled, this, &InterfacePane::OnSaveConfig);
+#endif
   connect(m_checkbox_focused_hotkeys, &QCheckBox::toggled, this, &InterfacePane::OnSaveConfig);
   connect(m_combobox_theme, &QComboBox::currentIndexChanged, this, [this](int index) {
     Settings::Instance().SetThemeName(m_combobox_theme->itemText(index));
@@ -252,8 +258,10 @@ void InterfacePane::LoadConfig()
 {
   SignalBlocking(m_checkbox_use_builtin_title_database)
       ->setChecked(Config::Get(Config::MAIN_USE_BUILT_IN_TITLE_DATABASE));
+#ifndef SPDY_GUI_USE_DEBUGGER_ALWAYS
   SignalBlocking(m_checkbox_show_debugging_ui)
       ->setChecked(Settings::Instance().IsDebugModeEnabled());
+#endif
 
 #ifdef USE_RETRO_ACHIEVEMENTS
   bool hardcore = Config::Get(Config::RA_HARDCORE_ENABLED);
@@ -314,7 +322,9 @@ void InterfacePane::OnSaveConfig()
 {
   Config::SetBase(Config::MAIN_USE_BUILT_IN_TITLE_DATABASE,
                   m_checkbox_use_builtin_title_database->isChecked());
+#ifndef SPDY_GUI_USE_DEBUGGER_ALWAYS
   Settings::Instance().SetDebugModeEnabled(m_checkbox_show_debugging_ui->isChecked());
+#endif
   const auto selected_style = m_combobox_userstyle->currentData();
   bool is_builtin_type = false;
   const int style_type_int = selected_style.toInt(&is_builtin_type);

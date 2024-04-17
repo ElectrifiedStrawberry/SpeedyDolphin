@@ -568,6 +568,9 @@ void Settings::SetDebugModeEnabled(bool enabled)
   if (Config::Get(Config::RA_HARDCORE_ENABLED))
     enabled = false;
 #endif  // USE_RETRO_ACHIEVEMENTS
+#ifdef SPDY_GUI_USE_DEBUGGER_ALWAYS
+  enabled = true;
+#endif
   if (IsDebugModeEnabled() != enabled)
   {
     Config::SetBaseOrCurrent(Config::MAIN_ENABLE_DEBUGGING, enabled);
@@ -577,9 +580,14 @@ void Settings::SetDebugModeEnabled(bool enabled)
   }
 }
 
+
 bool Settings::IsDebugModeEnabled() const
 {
+#ifdef SPDY_GUI_USE_DEBUGGER_ALWAYS
+  return true;
+#else
   return Config::Get(Config::MAIN_ENABLE_DEBUGGING);
+#endif
 }
 
 void Settings::SetRegistersVisible(bool enabled)

@@ -80,6 +80,7 @@ AudioInterfaceManager::~AudioInterfaceManager() = default;
 
 void AudioInterfaceManager::DoState(PointerWrap& p)
 {
+#ifndef SPDY_NO_DSP
   p.Do(m_control);
   p.Do(m_volume);
   p.Do(m_sample_counter);
@@ -91,18 +92,23 @@ void AudioInterfaceManager::DoState(PointerWrap& p)
 
   SoundStream* sound_stream = m_system.GetSoundStream();
   sound_stream->GetMixer()->DoState(p);
+#endif
 }
 
 void AudioInterfaceManager::UpdateInterrupts()
 {
+#ifndef SPDY_NO_DSP
   m_system.GetProcessorInterface().SetInterrupt(ProcessorInterface::INT_CAUSE_AI,
                                                 m_control.AIINT & m_control.AIINTMSK);
+#endif
 }
 
 void AudioInterfaceManager::GenerateAudioInterrupt()
 {
+#ifndef SPDY_NO_DSP
   m_control.AIINT = 1;
   UpdateInterrupts();
+#endif
 }
 
 void AudioInterfaceManager::IncreaseSampleCount(const u32 amount)
@@ -134,11 +140,14 @@ int AudioInterfaceManager::GetAIPeriod() const
 
 void AudioInterfaceManager::GlobalUpdate(Core::System& system, u64 userdata, s64 cycles_late)
 {
+#ifndef SPDY_NO_DSP
   system.GetAudioInterface().Update(userdata, cycles_late);
+#endif
 }
 
 void AudioInterfaceManager::Update(u64 userdata, s64 cycles_late)
 {
+#ifndef SPDY_NO_DSP
   if (!IsPlaying())
     return;
 
@@ -152,10 +161,12 @@ void AudioInterfaceManager::Update(u64 userdata, s64 cycles_late)
     IncreaseSampleCount(samples);
   }
   core_timing.ScheduleEvent(GetAIPeriod() - cycles_late, m_event_type_ai);
+#endif
 }
 
 void AudioInterfaceManager::SetAIDSampleRate(SampleRate sample_rate)
 {
+#ifndef SPDY_NO_DSP
   if (sample_rate == SampleRate::AI32KHz)
   {
     m_control.AIDFR = AID_32KHz;
@@ -169,10 +180,12 @@ void AudioInterfaceManager::SetAIDSampleRate(SampleRate sample_rate)
 
   SoundStream* sound_stream = m_system.GetSoundStream();
   sound_stream->GetMixer()->SetDMAInputSampleRateDivisor(m_aid_sample_rate_divisor);
+#endif
 }
 
 void AudioInterfaceManager::SetAISSampleRate(SampleRate sample_rate)
 {
+#ifndef SPDY_NO_DSP
   if (sample_rate == SampleRate::AI32KHz)
   {
     m_control.AISFR = AIS_32KHz;
@@ -188,10 +201,12 @@ void AudioInterfaceManager::SetAISSampleRate(SampleRate sample_rate)
                             m_ais_sample_rate_divisor / Mixer::FIXED_SAMPLE_RATE_DIVIDEND;
   SoundStream* sound_stream = m_system.GetSoundStream();
   sound_stream->GetMixer()->SetStreamInputSampleRateDivisor(m_ais_sample_rate_divisor);
+#endif
 }
 
 void AudioInterfaceManager::Init()
 {
+#ifndef SPDY_NO_DSP
   m_control.hex = 0;
   SetAISSampleRate(SampleRate::AI48KHz);
   SetAIDSampleRate(SampleRate::AI32KHz);
@@ -200,8 +215,8 @@ void AudioInterfaceManager::Init()
   m_interrupt_timing = 0;
 
   m_last_cpu_time = 0;
-
   m_event_type_ai = m_system.GetCoreTiming().RegisterEvent("AICallback", GlobalUpdate);
+#endif
 }
 
 void AudioInterfaceManager::Shutdown()

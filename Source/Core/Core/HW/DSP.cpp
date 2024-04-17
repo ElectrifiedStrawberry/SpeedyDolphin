@@ -1,3 +1,4 @@
+#ifndef SPDY_NO_DSP
 // Copyright 2008 Dolphin Emulator Project
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -406,6 +407,7 @@ void DSPManager::GenerateDSPInterruptFromDSPEmu(DSPInterruptType type, int cycle
 // called whenever SystemTimers thinks the DSP deserves a few more cycles
 void DSPManager::UpdateDSPSlice(int cycles)
 {
+#ifndef SPDY_NO_DSP
   if (m_is_lle)
   {
     // use up the rest of the slice(if any)
@@ -418,6 +420,7 @@ void DSPManager::UpdateDSPSlice(int cycles)
   {
     m_dsp_emulator->DSP_Update(cycles);
   }
+#endif
 }
 
 // This happens at 4 khz, since 32 bytes at 4khz = 4 bytes at 32 khz (16bit stereo pcm)
@@ -604,3 +607,4 @@ u8* DSPManager::GetARAMPtr() const
 }
 
 }  // end of namespace DSP
+#endif

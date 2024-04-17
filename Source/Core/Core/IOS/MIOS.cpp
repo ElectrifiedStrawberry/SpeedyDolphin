@@ -45,9 +45,11 @@ static void ReinitHardware(Core::System& system)
   system.GetPowerPC().Reset();
   Wiimote::ResetAllWiimotes();
   // Note: this is specific to Dolphin and is required because we initialised it in Wii mode.
+#ifndef SPDY_NO_DSP
   auto& dsp = system.GetDSP();
   dsp.Reinit(Config::Get(Config::MAIN_DSP_HLE));
   dsp.GetDSPEmulator()->Initialize(system.IsWii(), Config::Get(Config::MAIN_DSP_THREAD));
+#endif
 
   system.GetSystemTimers().ChangePPCClock(SystemTimers::Mode::GC);
 }

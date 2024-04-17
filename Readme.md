@@ -60,7 +60,7 @@ by default.
 
 <details>
 
-<summary>Original README below</summary>
+<summary>Original README</summary>
 
 # Dolphin - A GameCube and Wii Emulator
 

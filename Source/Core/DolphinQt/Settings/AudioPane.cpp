@@ -1,5 +1,6 @@
 // Copyright 2017 Dolphin Emulator Project
 // SPDX-License-Identifier: GPL-2.0-or-later
+#ifndef SPDY_NO_DSP
 
 #include "DolphinQt/Settings/AudioPane.h"
 
@@ -451,3 +452,4 @@ void AudioPane::EnableDolbyQualityWidgets(bool enabled) const
   m_dolby_quality_highest_label->setEnabled(enabled);
   m_dolby_quality_latency_label->setEnabled(enabled);
 }
+#endif

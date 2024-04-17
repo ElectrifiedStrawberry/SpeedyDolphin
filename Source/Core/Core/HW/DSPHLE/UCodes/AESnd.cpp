@@ -1,5 +1,6 @@
 // Copyright 2022 Dolphin Emulator Project
 // SPDX-License-Identifier: GPL-2.0-or-later
+#ifndef SPDY_NO_DSP
 
 // High-level emulation for the libaesnd ucode, used by homebrew
 // libaesnd is part of devkitPro's libogc, released under the Zlib license
@@ -452,3 +453,4 @@ void AESndUCode::DoState(PointerWrap& p)
   m_accelerator.DoState(p);
 }
 }  // namespace DSP::HLE
+#endif

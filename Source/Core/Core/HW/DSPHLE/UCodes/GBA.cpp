@@ -1,5 +1,6 @@
 // Copyright 2010 Dolphin Emulator Project
 // SPDX-License-Identifier: GPL-2.0-or-later
+#ifndef SPDY_NO_DSP
 
 #include "Core/HW/DSPHLE/UCodes/GBA.h"
 
@@ -151,3 +152,4 @@ void GBAUCode::DoState(PointerWrap& p)
   p.Do(m_mail_state);
 }
 }  // namespace DSP::HLE
+#endif

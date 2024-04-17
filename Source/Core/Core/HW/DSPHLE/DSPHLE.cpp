@@ -1,5 +1,6 @@
 // Copyright 2011 Dolphin Emulator Project
 // SPDX-License-Identifier: GPL-2.0-or-later
+#ifndef SPDY_NO_DSP
 
 #include "Core/HW/DSPHLE/DSPHLE.h"
 
@@ -246,3 +247,4 @@ void DSPHLE::PauseAndLock(bool do_lock)
 {
 }
 }  // namespace DSP::HLE
+#endif

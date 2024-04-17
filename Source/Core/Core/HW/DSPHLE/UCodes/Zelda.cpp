@@ -1,5 +1,6 @@
 // Copyright 2008 Dolphin Emulator Project
 // SPDX-License-Identifier: GPL-2.0-or-later
+#ifndef SPDY_NO_DSP
 
 #include "Core/HW/DSPHLE/UCodes/Zelda.h"
 
@@ -1856,3 +1857,4 @@ void ZeldaAudioRenderer::DoState(PointerWrap& p)
   p.Do(m_buf_front_right_reverb_last8);
 }
 }  // namespace DSP::HLE
+#endif

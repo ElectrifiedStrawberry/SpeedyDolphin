@@ -8,6 +8,7 @@
 //  * ITD support
 //  * Polyphase sample interpolation support (not very useful)
 //  * Dolby Pro 2 mixing with recent AX versions
+#ifndef SPDY_NO_DSP
 
 #pragma once
 
@@ -229,3 +230,4 @@ private:
   MailState m_mail_state = MailState::WaitingForCmdListSize;
 };
 }  // namespace DSP::HLE
+#endif

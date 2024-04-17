@@ -1,5 +1,6 @@
 // Copyright 2009 Dolphin Emulator Project
 // SPDX-License-Identifier: GPL-2.0-or-later
+#ifndef SPDY_NO_DSP
 
 #include "Core/DSP/DSPHost.h"
 
@@ -107,3 +108,4 @@ void UpdateDebugger()
   Host_RefreshDSPDebuggerWindow();
 }
 }  // namespace DSP::Host
+#endif

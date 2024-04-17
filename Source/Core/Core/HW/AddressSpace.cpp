@@ -203,6 +203,7 @@ struct EffectiveAddressSpaceAccessors : Accessors
   }
 };
 
+#ifndef SPDY_NO_DSP
 struct AuxiliaryAddressSpaceAccessors : Accessors
 {
   static constexpr u32 aram_base_address = 0;
@@ -265,6 +266,7 @@ struct AuxiliaryAddressSpaceAccessors : Accessors
 private:
   static u32 GetSize() { return 16 * 1024 * 1024; }
 };
+#endif
 
 struct AccessorMapping
 {
@@ -421,7 +423,9 @@ struct NullAccessors : Accessors
 };
 
 static EffectiveAddressSpaceAccessors s_effective_address_space_accessors;
+#ifndef SPDY_NO_DSP
 static AuxiliaryAddressSpaceAccessors s_auxiliary_address_space_accessors;
+#endif
 static SmallBlockAccessors s_mem1_address_space_accessors;
 static SmallBlockAccessors s_mem2_address_space_accessors;
 static SmallBlockAccessors s_fake_address_space_accessors;
@@ -457,12 +461,14 @@ Accessors* GetAccessors(Type address_space)
       return &s_mem2_address_space_accessors;
     }
     break;
+#ifndef SPDY_NO_DSP
   case Type::Auxiliary:
     if (!Core::System::GetInstance().IsWii())
     {
       return &s_auxiliary_address_space_accessors;
     }
     break;
+#endif
   case Type::Fake:
     return &s_fake_address_space_accessors;
   }

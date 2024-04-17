@@ -70,6 +70,7 @@ IPC_HLE_PERIOD: For the Wii Remote this is the call schedule:
 
 namespace SystemTimers
 {
+#ifndef SPDY_NO_DSP
 // DSP/CPU timeslicing.
 void SystemTimersManager::DSPCallback(Core::System& system, u64 userdata, s64 cycles_late)
 {
@@ -97,6 +98,7 @@ void SystemTimersManager::AudioDMACallback(Core::System& system, u64 userdata, s
   system.GetCoreTiming().ScheduleEvent(callback_period - cycles_late,
                                        system_timers.m_event_type_audio_dma);
 }
+#endif
 
 void SystemTimersManager::IPC_HLE_UpdateCallback(Core::System& system, u64 userdata,
                                                  s64 cycles_late)
@@ -286,8 +288,10 @@ void SystemTimersManager::Init()
 
   m_event_type_decrementer = core_timing.RegisterEvent("DecCallback", DecrementerCallback);
   m_event_type_vi = core_timing.RegisterEvent("VICallback", VICallback);
+#ifndef SPDY_NO_DSP
   m_event_type_dsp = core_timing.RegisterEvent("DSPCallback", DSPCallback);
   m_event_type_audio_dma = core_timing.RegisterEvent("AudioDMACallback", AudioDMACallback);
+#endif
   m_event_type_ipc_hle =
       core_timing.RegisterEvent("IPC_HLE_UpdateCallback", IPC_HLE_UpdateCallback);
   m_event_type_gpu_sleeper = core_timing.RegisterEvent("GPUSleeper", GPUSleepCallback);
@@ -297,11 +301,13 @@ void SystemTimersManager::Init()
   core_timing.ScheduleEvent(0, m_event_type_perf_tracker);
   core_timing.ScheduleEvent(0, m_event_type_gpu_sleeper);
   core_timing.ScheduleEvent(vi.GetTicksPerHalfLine(), m_event_type_vi);
+#ifndef SPDY_NO_DSP
   core_timing.ScheduleEvent(0, m_event_type_dsp);
 
   const int audio_dma_callback_period = GetAudioDMACallbackPeriod(
       m_cpu_core_clock, m_system.GetAudioInterface().GetAIDSampleRateDivisor());
   core_timing.ScheduleEvent(audio_dma_callback_period, m_event_type_audio_dma);
+#endif
 
   core_timing.ScheduleEvent(vi.GetTicksPerField(), m_event_type_patch_engine);
 

@@ -47,7 +47,11 @@ struct System::Impl
 {
   explicit Impl(System& system)
       : m_audio_interface(system), m_core_timing(system), m_command_processor{system},
+#ifndef SPDY_NO_DSP
         m_cpu(system), m_dsp(system), m_dvd_interface(system), m_dvd_thread(system),
+#else
+        m_cpu(system), m_dvd_interface(system), m_dvd_thread(system),
+#endif
         m_expansion_interface(system), m_fifo{system}, m_gp_fifo(system), m_wii_ipc(system),
         m_memory(system), m_pixel_engine{system}, m_power_pc(system),
         m_mmu(system, m_memory, m_power_pc), m_processor_interface(system),
@@ -68,7 +72,9 @@ struct System::Impl
   CoreTiming::CoreTimingManager m_core_timing;
   CommandProcessor::CommandProcessorManager m_command_processor;
   CPU::CPUManager m_cpu;
+#ifndef SPDY_NO_DSP
   DSP::DSPManager m_dsp;
+#endif
   DVD::DVDInterface m_dvd_interface;
   DVD::DVDThread m_dvd_thread;
   ExpansionInterface::ExpansionInterfaceManager m_expansion_interface;
@@ -173,10 +179,12 @@ CommandProcessor::CommandProcessorManager& System::GetCommandProcessor() const
   return m_impl->m_command_processor;
 }
 
+#ifndef SPDY_NO_DSP
 DSP::DSPManager& System::GetDSP() const
 {
   return m_impl->m_dsp;
 }
+#endif
 
 DVD::DVDInterface& System::GetDVDInterface() const
 {

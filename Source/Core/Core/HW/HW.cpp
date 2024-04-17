@@ -47,7 +47,9 @@ void Init(Core::System& system, const Sram* override_sram)
   system.GetMemory().Init();  // Needs to be initialized before AddressSpace
   AddressSpace::Init();
   system.GetMemoryInterface().Init();
+#ifndef SPDY_NO_DSP
   system.GetDSP().Init(Config::Get(Config::MAIN_DSP_HLE));
+#endif
   system.GetDVDInterface().Init();
   system.GetGPFifo().Init();
   system.GetCPU().Init(Config::Get(Config::MAIN_CPU_CORE));
@@ -69,7 +71,9 @@ void Shutdown(Core::System& system)
   system.GetSystemTimers().Shutdown();
   system.GetCPU().Shutdown();
   system.GetDVDInterface().Shutdown();
+#ifndef SPDY_NO_DSP
   system.GetDSP().Shutdown();
+#endif
   system.GetMemoryInterface().Shutdown();
   AddressSpace::Shutdown();
   system.GetMemory().Shutdown();
@@ -94,8 +98,10 @@ void DoState(Core::System& system, PointerWrap& p)
   p.DoMarker("SerialInterface");
   system.GetProcessorInterface().DoState(p);
   p.DoMarker("ProcessorInterface");
+#ifndef SPDY_NO_DSP
   system.GetDSP().DoState(p);
   p.DoMarker("DSP");
+#endif
   system.GetDVDInterface().DoState(p);
   p.DoMarker("DVDInterface");
   system.GetGPFifo().DoState(p);

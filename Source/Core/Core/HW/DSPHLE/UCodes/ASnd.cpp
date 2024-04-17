@@ -3,6 +3,7 @@
 
 // High-level emulation for the libasnd ucode, used by older homebrew
 // libasnd is copyright 2008 Hermes <www.entuwii.net> and released under the BSD-3-Clause license
+#ifndef SPDY_NO_DSP
 
 #include "Core/HW/DSPHLE/UCodes/ASnd.h"
 
@@ -573,3 +574,4 @@ void ASndUCode::DoState(PointerWrap& p)
   p.Do(m_output_buffer);
 }
 }  // namespace DSP::HLE
+#endif

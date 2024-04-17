@@ -1,5 +1,6 @@
 // Copyright 2008 Dolphin Emulator Project
 // SPDX-License-Identifier: GPL-2.0-or-later
+#ifndef SPDY_NO_DSP
 
 #include "Core/DSPEmulator.h"
 
@@ -17,3 +18,4 @@ std::unique_ptr<DSPEmulator> CreateDSPEmulator(Core::System& system, bool hle)
 
   return std::make_unique<DSP::LLE::DSPLLE>();
 }
+#endif

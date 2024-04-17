@@ -95,6 +95,7 @@ void ShutdownSoundStream(Core::System& system)
 std::string GetDefaultSoundBackend()
 {
   std::string backend = BACKEND_NULLSOUND;
+#ifndef SPDY_NO_DSP
 #if defined ANDROID
   backend = BACKEND_OPENSLES;
 #elif defined __linux__
@@ -104,6 +105,7 @@ std::string GetDefaultSoundBackend()
     backend = BACKEND_CUBEB;
 #elif defined(__APPLE__) || defined(_WIN32) || defined(__OpenBSD__)
   backend = BACKEND_CUBEB;
+#endif
 #endif
   return backend;
 }
@@ -118,6 +120,7 @@ std::vector<std::string> GetSoundBackends()
   std::vector<std::string> backends;
 
   backends.emplace_back(BACKEND_NULLSOUND);
+#ifndef SPDY_NO_DSP
   backends.emplace_back(BACKEND_CUBEB);
   if (AlsaSound::IsValid())
     backends.emplace_back(BACKEND_ALSA);
@@ -129,7 +132,7 @@ std::vector<std::string> GetSoundBackends()
     backends.emplace_back(BACKEND_OPENSLES);
   if (WASAPIStream::IsValid())
     backends.emplace_back(BACKEND_WASAPI);
-
+#endif
   return backends;
 }
 

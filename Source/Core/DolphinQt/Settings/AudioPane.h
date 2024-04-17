@@ -1,6 +1,8 @@
 // Copyright 2017 Dolphin Emulator Project
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#ifndef SPDY_NO_DSP
+
 #pragma once
 
 #include <QWidget>
@@ -77,3 +79,4 @@ private:
   QSlider* m_stretching_buffer_slider;
   QLabel* m_stretching_buffer_indicator;
 };
+#endif

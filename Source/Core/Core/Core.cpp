@@ -591,11 +591,12 @@ static void EmuThread(Core::System& system, std::unique_ptr<BootParameters> boot
 
     g_video_backend->Shutdown();
   }};
-
+#ifndef SPDY_NO_DSP
   if (cpu_info.HTT)
     Config::SetBaseOrCurrent(Config::MAIN_DSP_THREAD, cpu_info.num_cores > 4);
   else
     Config::SetBaseOrCurrent(Config::MAIN_DSP_THREAD, cpu_info.num_cores > 2);
+
 
   if (!system.GetDSP().GetDSPEmulator()->Initialize(system.IsWii(),
                                                     Config::Get(Config::MAIN_DSP_THREAD)))
@@ -603,6 +604,7 @@ static void EmuThread(Core::System& system, std::unique_ptr<BootParameters> boot
     PanicAlertFmt("Failed to initialize DSP emulation!");
     return;
   }
+#endif
 
   AudioCommon::PostInitSoundStream(system);
 
@@ -817,8 +819,10 @@ static bool PauseAndLock(Core::System& system, bool do_lock, bool unpause_on_unl
     was_unpaused = system.GetCPU().PauseAndLock(true);
   }
 
+#ifndef SPDY_NO_DSP
   // audio has to come after CPU, because CPU thread can wait for audio thread (m_throttle).
   system.GetDSP().GetDSPEmulator()->PauseAndLock(do_lock);
+#endif
 
   // video has to come after CPU, because CPU thread can wait for video thread
   // (s_efbAccessRequested).

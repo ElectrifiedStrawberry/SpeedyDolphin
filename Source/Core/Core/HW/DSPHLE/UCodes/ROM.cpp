@@ -1,5 +1,6 @@
 // Copyright 2008 Dolphin Emulator Project
 // SPDX-License-Identifier: GPL-2.0-or-later
+#ifndef SPDY_NO_DSP
 
 #include "Core/HW/DSPHLE/UCodes/ROM.h"
 
@@ -126,3 +127,4 @@ void ROMUCode::DoState(PointerWrap& p)
   DoStateShared(p);
 }
 }  // namespace DSP::HLE
+#endif

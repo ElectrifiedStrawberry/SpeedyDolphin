@@ -1,5 +1,6 @@
 // Copyright 2008 Dolphin Emulator Project
 // SPDX-License-Identifier: GPL-2.0-or-later
+#ifndef SPDY_NO_DSP
 
 #include "Core/HW/DSPHLE/UCodes/UCodes.h"
 
@@ -336,3 +337,4 @@ std::unique_ptr<UCodeInterface> UCodeFactory(u32 crc, DSPHLE* dsphle, bool wii)
   return nullptr;
 }
 }  // namespace DSP::HLE
+#endif

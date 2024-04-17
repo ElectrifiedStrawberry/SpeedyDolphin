@@ -56,7 +56,11 @@ struct IPCReply
   u64 reply_delay_ticks;
 };
 
+#ifdef SPDY_FAST_TIMINGS  // IPC overhead
+constexpr SystemTimers::TimeBaseTick IPC_OVERHEAD_TICKS = SystemTimers::TimeBaseTick();
+#else
 constexpr SystemTimers::TimeBaseTick IPC_OVERHEAD_TICKS = 2700_tbticks;
+#endif
 
 // Used to make it more convenient for functions to return timing information
 // without having to explicitly keep track of ticks in callers.

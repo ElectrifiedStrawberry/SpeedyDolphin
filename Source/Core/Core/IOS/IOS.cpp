@@ -481,10 +481,14 @@ static void FinishIOSBoot(Core::System& system, u64 ios_title_id)
 
 static constexpr SystemTimers::TimeBaseTick GetIOSBootTicks(u32 version)
 {
+#ifdef SPDY_FAST_TIMINGS // IOS Boot Ticks
+  return SystemTimers::TimeBaseTick();
+#else
   // Older IOS versions are monolithic so the main ELF is much larger and takes longer to load.
   if (version < 28)
     return 16'000'000_tbticks;
   return 2'600'000_tbticks;
+#endif
 }
 
 // Similar to syscall 0x42 (ios_boot); this is used to change the current active IOS.

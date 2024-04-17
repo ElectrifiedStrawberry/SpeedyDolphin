@@ -65,6 +65,14 @@ on another method (MMIO, probably) to control the running application.
 The DVD controller, even when "Emulate Disc Speed" is unchecked, limits
 to 32 MiB/s. This removes this limit.
 
+### Fast Timings (`SPDY_FAST_TIMINGS`)
+
+Trades emulation accuracy for speed in a few different areas.
+
+For example:
+* IOS Boot Ticks
+* IPC overhead
+
 ### Portable Mode Only (`SPDY_PORTABLE_ONLY`)
 
 Uses portable mode all the time. Doesn't enhance performance, but may be

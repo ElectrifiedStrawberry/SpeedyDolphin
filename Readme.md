@@ -19,8 +19,13 @@ Where possible, compiler defines are provided so you can build however you want.
 ### Overclockability (`SPDY_CPU_HIGH_OC_LIMIT`)
 
 Increasing the emulated CPU speed is the main reason for this fork. 
-You can set up overclocking to around 16x (4x is the default and my guess is that most 
-computers won't be able to handle more than 8x).
+You can set up overclocking to around 16x (4x is upstream's maximum and my 
+guess is that most  computers won't be able to handle more than 8x).
+
+> [!IMPORTANT]
+> All the caveats that are given with CPU overclocking by upstream apply; very
+> few games can make use of it (and very few applications can make use of the
+> higher limit still).
 
 ### Disabled DSP (`SPDY_NO_DSP`) *(In Progress)*
 

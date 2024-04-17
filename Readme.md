@@ -12,8 +12,9 @@ Where possible, compiler defines are provided so you can build however you want.
 
 > [!IMPORTANT]
 > It's worth strongly emphasizing again that performance (and specifically
-> CPU performance) is the goal. With some settings, some applications and games
-> may be buggy, simply not work, or cause other problems.
+> CPU performance) is the goal. **In particular, playability is also**
+> **deemphasized**. With some settings, some applications and games may be buggy,
+> simply not work, or cause other problems.
 >
 > Generally the rule of thumb is that the behavior of the core PowerPC components
 > are emphasized while other components are deemphasized.

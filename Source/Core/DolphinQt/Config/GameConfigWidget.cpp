@@ -107,6 +107,9 @@ void GameConfigWidget::CreateWidgets()
       tr("Enable emulated disc speed. Disabling this can cause crashes "
          "and other problems in some games. "
          "(ON = Compatible, OFF = Unlocked)"));
+#ifdef SPDY_DVD_OC
+  m_emulate_disc_speed->setEnabled(false);
+#endif
 
   core_layout->addWidget(m_enable_dual_core, 0, 0);
   core_layout->addWidget(m_enable_mmu, 1, 0);
@@ -279,7 +282,9 @@ void GameConfigWidget::LoadSettings()
   LoadCheckBox(m_enable_mmu, "Core", "MMU");
   LoadCheckBox(m_enable_fprf, "Core", "FPRF");
   LoadCheckBox(m_sync_gpu, "Core", "SyncGPU");
+#ifndef SPDY_DVD_OC
   LoadCheckBox(m_emulate_disc_speed, "Core", "FastDiscSpeed", true);
+#endif
   LoadCheckBox(m_use_dsp_hle, "Core", "DSPHLE");
   LoadCheckBox(m_manual_texture_sampling, "Video_Hacks", "FastTextureSampling", true);
 
@@ -330,7 +335,9 @@ void GameConfigWidget::SaveSettings()
   SaveCheckBox(m_enable_mmu, "Core", "MMU");
   SaveCheckBox(m_enable_fprf, "Core", "FPRF");
   SaveCheckBox(m_sync_gpu, "Core", "SyncGPU");
+#ifndef SPDY_DVD_OC
   SaveCheckBox(m_emulate_disc_speed, "Core", "FastDiscSpeed", true);
+#endif
   SaveCheckBox(m_use_dsp_hle, "Core", "DSPHLE");
   SaveCheckBox(m_manual_texture_sampling, "Video_Hacks", "FastTextureSampling", true);
 

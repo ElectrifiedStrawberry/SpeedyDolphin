@@ -22,7 +22,7 @@ Increasing the emulated CPU speed is the main reason for this fork.
 You can set up overclocking to around 16x (4x is the default and my guess is that most 
 computers won't be able to handle more than 8x).
 
-### Disabled DSP (`SPDY_NO_DSP`)
+### Disabled DSP (`SPDY_NO_DSP`) *(In Progress)*
 
 Disable DSP (and therefore sound) emulation altogether.
 
@@ -37,12 +37,12 @@ For SDK games, stubbing out `AXInit` should work.
 (This issue happens particularly because `__AXOutInitDSP` calls `DSPInit`
 then starts a task which never completes (because the DSP isn't responding).)
 
-### Disabled controller support (`SPDY_NO_CTLRS`)
+### Disabled controller support (`SPDY_NO_CTLRS`) *(In Progress)*
 
 Disable support for controller emulation, mapping, etc. You'll need to rely
 on another method (MMIO, probably) to control the running application.
 
-### DVD Overclock (`SPDY_DVD_OC`)
+### DVD Overclock (`SPDY_DVD_OC`) *(In Progress)*
 
 The DVD controller, even when "Emulate Disc Speed" is unchecked, limits
 to 32 MiB/s. This removes this limit.

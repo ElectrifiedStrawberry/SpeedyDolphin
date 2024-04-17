@@ -50,6 +50,7 @@
 	  
 	  <!-- SPDY START: Custom processor definitions -->
 	  <PreprocessorDefinitions>SPDY_PORTABLE_ONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+	  <PreprocessorDefinitions>SPDY_CPU_HIGH_OC_LIMIT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  <!-- SPDY END -->
 
       <!-- Warnings one may want to ignore when using Level4.

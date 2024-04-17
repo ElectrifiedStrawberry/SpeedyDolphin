@@ -100,7 +100,11 @@ void AdvancedPane::CreateLayout()
   clock_override_layout->addLayout(cpu_clock_override_slider_layout);
 
   m_cpu_clock_override_slider = new QSlider(Qt::Horizontal);
+#ifdef SPDY_CPU_HIGH_OC_LIMIT
+  m_cpu_clock_override_slider->setRange(0, 200);
+#else
   m_cpu_clock_override_slider->setRange(0, 150);
+#endif
   cpu_clock_override_slider_layout->addWidget(m_cpu_clock_override_slider);
 
   m_cpu_clock_override_slider_label = new QLabel();

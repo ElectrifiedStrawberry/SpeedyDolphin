@@ -48,7 +48,7 @@ that writes into memory.
 
 What events will still be processed is still being decided.
 
-### Disabled DSP (`SPDY_NO_DSP`) *(In Progress)*
+### Disabled DSP (`SPDY_NO_DSP`)
 
 Disable DSP (and therefore sound) emulation altogether.
 

@@ -1,6 +1,6 @@
 # SpeedyDolphin - A GameCube and Wii Emulator
 
-It's like Dolphin, but without the "allowing you to play games" part.
+It's like [Dolphin](https://github.com/dolphin-emu/dolphin), but without the "allowing you to play games" part.
 
 ## What this fork is about
 
@@ -44,7 +44,8 @@ guess is that most computers won't be able to handle more than 8x).
 
 Enables a mode that, once activated, stops most events from occurring. This is
 useful for scenarios where a program is ran with data from a external interface
-that writes into memory.
+that writes into memory and only needs the full featureset for a limited period
+of time.
 
 What events will still be processed is still being decided.
 
@@ -88,7 +89,7 @@ For example:
 Uses portable mode all the time. Doesn't enhance performance, but may be
 useful if you have multiple copies lugging around.
 
-### Always Launch In Debug Mode (`SPDY_GUI_USE_DEBUGGER_ALWAYS`)
+### Always Use the GUI Debugger (`SPDY_GUI_USE_DEBUGGER_ALWAYS`)
 
 Use the debugger UI even when launched without the `-d` flag.  
 This only applies to the Qt UI.

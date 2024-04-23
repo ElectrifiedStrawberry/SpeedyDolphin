@@ -299,7 +299,7 @@ is intended for debugging purposes only.
 ```
 usage: dolphin-tool COMMAND -h
 
-commands supported: [convert, verify, header]
+commands supported: [convert, verify, header, extract]
 ```
 
 ```
@@ -358,5 +358,4 @@ then exit.
                         Optional. Print the level of compression for WIA/RVZ
                         formats, then exit.
 ```
-
 </details>

@@ -94,10 +94,10 @@ constexpr std::array<Hook, PatchCount> os_patches{{
 #endif
 #ifdef SPDY_HLE_EX
 
-    {"sqrt",                         HLE_SPDY_CRT::HLE_Sqrt,                HookType::Replace, HookFlag::Generic},
-    {"sin",                          HLE_SPDY_CRT::HLE_Sin,                 HookType::Replace, HookFlag::Generic},
-    {"cos",                          HLE_SPDY_CRT::HLE_Cos,                 HookType::Replace, HookFlag::Generic},
-    {"tan",                          HLE_SPDY_CRT::HLE_Tan,                 HookType::Replace, HookFlag::Generic},
+    {"sqrt",                         HLE_SPDY_CRT::HLE_CRT_Sqrt,            HookType::Replace, HookFlag::Generic},
+    {"sin",                          HLE_SPDY_CRT::HLE_CRT_Sin,             HookType::Replace, HookFlag::Generic},
+    {"cos",                          HLE_SPDY_CRT::HLE_CRT_Cos,             HookType::Replace, HookFlag::Generic},
+    {"tan",                          HLE_SPDY_CRT::HLE_CRT_Tan,             HookType::Replace, HookFlag::Generic},
 #endif
 }};
 // clang-format on

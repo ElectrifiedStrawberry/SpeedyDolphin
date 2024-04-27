@@ -15,6 +15,9 @@
 #include "Core/GeckoCode.h"
 #include "Core/HLE/HLE_Misc.h"
 #include "Core/HLE/HLE_OS.h"
+#ifdef SPDY_HLE_EX
+#include "Core/HLE/HLE_SPDY_CRT.h"
+#endif
 #include "Core/HW/Memmap.h"
 #include "Core/IOS/ES/ES.h"
 #include "Core/PowerPC/PPCSymbolDB.h"
@@ -27,11 +30,26 @@ namespace HLE
 static std::map<u32, u32> s_hooked_addresses;
 
 // clang-format off
-#ifndef SPDY_NO_DSP 
+#if defined SPDY_NO_DSP || defined SPDY_HLE_EX
+#define SPDY_INTERNAL_USING_EXTENDED_HLE_FUNCS
+#endif
+
+#ifdef SPDY_INTERNAL_USING_EXTENDED_HLE_FUNCS
+constexpr u64 PatchCount = (
+  23
+#ifdef SPDY_NO_DSP
+  +2
+#endif
+#ifdef SPDY_HLE_EX
+  +4
+#endif
+);
+#endif
+
+#ifndef SPDY_INTERNAL_USING_EXTENDED_HLE_FUNCS 
 constexpr std::array<Hook, 23> os_patches{{
 #else
-// TODO: If we HLE other stuff, we might need to think of a better way for this
-constexpr std::array<Hook, 25> os_patches{{
+constexpr std::array<Hook, PatchCount> os_patches{{
 #endif
     // Placeholder, os_patches[0] is the "non-existent function" index
     {"FAKE_TO_SKIP_0",               HLE_Misc::UnimplementedFunction,       HookType::Replace, HookFlag::Generic},
@@ -64,7 +82,7 @@ constexpr std::array<Hook, 25> os_patches{{
 
     {"GeckoCodehandler",             HLE_Misc::GeckoCodeHandlerICacheFlush, HookType::Start,   HookFlag::Fixed},
     {"GeckoHandlerReturnTrampoline", HLE_Misc::GeckoReturnTrampoline,       HookType::Replace, HookFlag::Fixed},
-#ifndef SPDY_NO_DSP 
+#ifndef SPDY_INTERNAL_USING_EXTENDED_HLE_FUNCS 
     {"AppLoaderReport",              HLE_OS::HLE_GeneralDebugPrint,         HookType::Start,   HookFlag::Fixed} // apploader needs OSReport-like function
 #else
     {"AppLoaderReport",              HLE_OS::HLE_GeneralDebugPrint,         HookType::Start,   HookFlag::Fixed}, // apploader needs OSReport-like function
@@ -73,6 +91,13 @@ constexpr std::array<Hook, 25> os_patches{{
 
     {"__OSInitAudioSystem",          HLE_Misc::UnimplementedFunction,       HookType::Replace, HookFlag::Generic},
     {"__AXOutInitDSP",               HLE_Misc::UnimplementedFunction,       HookType::Replace, HookFlag::Generic},
+#endif
+#ifdef SPDY_HLE_EX
+
+    {"sqrt",                         HLE_SPDY_CRT::HLE_Sqrt,                HookType::Replace, HookFlag::Generic},
+    {"sin",                          HLE_SPDY_CRT::HLE_Sin,                 HookType::Replace, HookFlag::Generic},
+    {"cos",                          HLE_SPDY_CRT::HLE_Cos,                 HookType::Replace, HookFlag::Generic},
+    {"tan",                          HLE_SPDY_CRT::HLE_Tan,                 HookType::Replace, HookFlag::Generic},
 #endif
 }};
 // clang-format on

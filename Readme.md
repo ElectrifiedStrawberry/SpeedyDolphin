@@ -66,6 +66,21 @@ SDK (or official) titles will call this function).
 (This issue happens particularly these functions wait for the DSP to respond
 and will simply sit in an infinite loop until they do.)
 
+### Extended High Level Emulation (`SPDY_HLE_EX`) *(In Progress)*
+
+High level emulates multiple different functions, equivalently in output, but
+using high level emulation instead of recompiling the function. This has 
+multiple benefits including:
+
+* Potential speed improvements (due to the fact that the C code could be 
+more thoroughly optimized than blind assembly)
+
+The currently targeted functions are:
+* `sqrt`
+* `sin`
+* `cos`
+* `tan`
+
 ### Disabled controller support (`SPDY_NO_CTLRS`) *(In Progress)*
 
 Disable support for controller emulation, mapping, etc. You'll need to rely

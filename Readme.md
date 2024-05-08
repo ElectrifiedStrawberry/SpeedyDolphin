@@ -40,6 +40,8 @@ guess is that most computers won't be able to handle more than 8x).
 > few games can make use of it (and very few applications can make use of the
 > higher limit still).
 
+Note: this only applies to the GUI, the command line already has no limiting.
+
 ### Point-of-No Return Mode (`SPDY_PNR_MODE`) *(In Progress)*
 
 Enables a mode that, once activated, stops most events from occurring. This is
@@ -80,6 +82,20 @@ The currently targeted functions are:
 * `sin`
 * `cos`
 * `tan`
+
+### Smaller Farcode Cache Size (`SPDY_SMALLER_FARCODE_SIZE`) *(In Progress)*
+
+Effectively reverts the change to [increase the farcode cache size](https://dolphin-emu.org/blog/2023/11/25/dolphin-progress-report-august-september-and-october-2023/#50-20201-increase-farcodenearcode-cache-sizes-by-dreamsyntax).
+
+While certain programs can make use of this, many programs don't have dynamic
+code or take very narrow code paths. Code cache sizes already were nonexistent
+or rarely seen in these programs.
+
+This reduces the farcode cache size from 64 MiB to 8 MiB and the JIT code size
+from 128 MiB to 32 MiB. This can reduce committed memory usage by about 
+150 MiB, which can account for 1/5 of the total commit that Dolphin uses in 
+some instances of headless mode (which if multiple instances are running, can 
+be quite significant).
 
 ### Disabled controller support (`SPDY_NO_CTLRS`) *(In Progress)*
 

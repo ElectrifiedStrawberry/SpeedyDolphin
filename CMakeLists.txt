@@ -402,7 +402,7 @@ endif()
 # All commands and submodule commands also need to see these
 # changes, so just setting them in the project scope via
 # include_directories and link_directories is not sufficient
-if(CMAKE_SYSTEM_NAME MATCHES "FreeBSD|NetBSD")
+if(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
   set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};/usr/local")
   set(CMAKE_REQUIRED_INCLUDES "/usr/local/include")
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L/usr/local/lib")
@@ -504,14 +504,14 @@ if (OPENGL_GL)
 endif()
 
 if(ENABLE_X11)
-  find_package(X11)
+  pkg_check_modules(X11 x11 IMPORTED_TARGET)
   if(X11_FOUND)
     add_definitions(-DHAVE_X11=1)
-    check_lib(XRANDR xrandr Xrandr)
+    pkg_check_modules(XRANDR xrandr IMPORTED_TARGET)
     if(XRANDR_FOUND)
       add_definitions(-DHAVE_XRANDR=1)
     endif()
-    pkg_check_modules(X11_INPUT REQUIRED xi>=1.5.0)
+    pkg_check_modules(X11_INPUT REQUIRED xi>=1.5.0 IMPORTED_TARGET)
     message(STATUS "X11 support enabled")
   else()
     message(WARNING "X11 support enabled but not found. This build will not support X11.")
@@ -802,15 +802,16 @@ include_directories("${PROJECT_BINARY_DIR}/Source/Core")
 # Unit testing.
 #
 if(ENABLE_TESTS)
-  find_package(GTest)
-  if (GTEST_FOUND)
-    message(STATUS "Using the system gtest")
-    include_directories(${GTEST_INCLUDE_DIRS})
-  else()
-    message(STATUS "Using static gtest from Externals")
-    add_subdirectory(Externals/gtest EXCLUDE_FROM_ALL)
+  dolphin_find_optional_system_library_pkgconfig(GTEST
+    gtest gtest::gtest Externals/gtest
+  )
+  # dolphin_find_optional_system_library_pkgconfig() doesn't add an alias if it
+  # uses the bundled libraries, so we add one ourselves.
+  if (NOT TARGET gtest::gtest)
+    add_library(gtest::gtest ALIAS gtest)
   endif()
-  # Force gtest to link the C runtime dynamically on Windows in order to avoid runtime mismatches.
+  # Force gtest to link the C runtime dynamically on Windows in order to avoid
+  # runtime mismatches.
   set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 else()
   message(STATUS "Unit tests are disabled")

@@ -56,6 +56,7 @@
 	  <PreprocessorDefinitions>SPDY_FAST_TIMINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  <PreprocessorDefinitions>SPDY_NO_DSP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  <PreprocessorDefinitions>SPDY_HLE_EX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+	  <PreprocessorDefinitions>SPDY_SMALLER_CODE_SIZE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 	  <!-- SPDY END -->
 
       <!-- Warnings one may want to ignore when using Level4.

@@ -83,9 +83,9 @@ The currently targeted functions are:
 * `cos`
 * `tan`
 
-### Smaller Farcode Cache Size (`SPDY_SMALLER_FARCODE_SIZE`) *(In Progress)*
+### Smaller Farcode Cache Size (`SPDY_SMALLER_CODE_SIZE`)
 
-Effectively reverts the change to [increase the farcode cache size](https://dolphin-emu.org/blog/2023/11/25/dolphin-progress-report-august-september-and-october-2023/#50-20201-increase-farcodenearcode-cache-sizes-by-dreamsyntax).
+Effectively reverts the change to [increase the code cache size](https://dolphin-emu.org/blog/2023/11/25/dolphin-progress-report-august-september-and-october-2023/#50-20201-increase-farcodenearcode-cache-sizes-by-dreamsyntax).
 
 While certain programs can make use of this, many programs don't have dynamic
 code or take very narrow code paths. Code cache sizes already were nonexistent

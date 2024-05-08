@@ -20,4 +20,8 @@ constexpr Gen::X64Reg RMEM = Gen::RBX;
 // to address as much as possible in a one-byte offset form.
 constexpr Gen::X64Reg RPPCSTATE = Gen::RBP;
 
+#ifdef SPDY_SMALLER_CODE_SIZE
+constexpr size_t CODE_SIZE = 1024 * 1024 * 32; // See 219610d8
+#else
 constexpr size_t CODE_SIZE = 1024 * 1024 * 128;
+#endif

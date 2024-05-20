@@ -31,14 +31,12 @@ Where possible, compiler defines are provided so you can build however you want.
 
 ### Overclockability (`SPDY_CPU_HIGH_OC_LIMIT`)
 
+*Applicable to GUI only*
+
 Increasing the emulated CPU speed is the main reason for this fork. 
 You can set up overclocking to around 16x (4x is upstream's maximum and my 
 guess is that most computers won't be able to handle more than 8x).
 
-> [!IMPORTANT]
-> All the caveats that are given with CPU overclocking by upstream apply; very
-> few games can make use of it (and very few applications can make use of the
-> higher limit still).
 
 Note: this only applies to the GUI, the command line already has no limiting.
 
@@ -97,6 +95,19 @@ from 128 MiB to 32 MiB. This can reduce committed memory usage by about
 some instances of headless mode (which if multiple instances are running, can 
 be quite significant).
 
+### Use Stderr As Default Panic Handler on All Platforms (`SPDY_PANIC_USE_STDERR`)
+
+*Not applicable to: GUI*
+
+Uses a print to stderr as the default panic handler, even on Windows.
+
+### Answer Yes to All Panic Alerts (`SPDY_PANIC_ANSWER_YES`)
+
+*Requires: `SPDY_PANIC_USE_STDERR`*  
+*Not applicable to: GUI*
+
+Answers yes to all panic alerts.
+
 ### Disabled controller support (`SPDY_NO_CTLRS`) *(In Progress)*
 
 Disable support for controller emulation, mapping, etc. You'll need to rely
@@ -121,6 +132,8 @@ Uses portable mode all the time. Doesn't enhance performance, but may be
 useful if you have multiple copies lugging around.
 
 ### Always Use the GUI Debugger (`SPDY_GUI_USE_DEBUGGER_ALWAYS`)
+
+*Applicable to GUI only*
 
 Use the debugger UI even when launched without the `-d` flag.  
 This only applies to the Qt UI.

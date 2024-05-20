@@ -26,6 +26,14 @@ namespace
 // Default non library dependent panic alert
 bool DefaultMsgHandler(const char* caption, const char* text, bool yes_no, MsgType style)
 {
+#ifdef SPDY_PANIC_USE_STDERR
+  fmt::print(stderr, "{}\n", text);
+  #ifdef SPDY_PANIC_ANSWER_YES
+  return true;
+  #else
+  return false;
+  #endif
+#endif
 #ifdef _WIN32
   int window_style = MB_ICONINFORMATION;
   if (style == MsgType::Question)
